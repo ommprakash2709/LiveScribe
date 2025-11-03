@@ -148,3 +148,311 @@ If you'd like, I can:
 1. Create `docs/glossary.md` and `data/glossary.json` next (machine-readable glossary),
 2. Add a short contributor note in `README.md` linking to this glossary, or
 3. Generate a basic WER-on-jargon evaluation script as a starting point.
+
+
+
+Here is a comprehensive jargon list for machine learning lectures, designed to be used for your **LiveScribe** project.
+
+I've organized this "vocabulary dataset" by sub-field, from core concepts to specific, advanced topics. You can copy-paste these lists directly into `.txt` files to create your `PhraseSet` for model adaptation.
+
+---
+
+### 1. Core ML & Data Science Concepts
+
+This list covers the fundamental terms you'll hear in *any* introductory ML lecture.
+
+* Algorithm
+* Artificial Intelligence (AI)
+* Machine Learning (ML)
+* Deep Learning (DL)
+* Model
+* Training
+* Testing
+* Validation
+* Training Set
+* Validation Set
+* Test Set
+* Feature
+* Feature Engineering
+* Feature Extraction
+* Feature Selection
+* Label
+* Target Variable
+* Instance
+* Sample
+* Epoch
+* Batch
+* Batch Size
+* Mini-Batch
+* Iteration
+* Hyperparameter
+* Hyperparameter Tuning
+* Parameter
+* Weights
+* Bias
+* Learning Rate
+* Cost Function
+* Loss Function
+* Gradient Descent
+* Stochastic Gradient Descent (SGD)
+* Optimization
+* Overfitting
+* Underfitting
+* Generalization
+* Regularization
+* L1 Regularization (Lasso)
+* L2 Regularization (Ridge)
+* Data Preprocessing
+* Data Cleaning
+* Data Augmentation
+* Data Wrangling
+* Normalization
+* Standardization
+* Min-Max Scaling
+* One-Hot Encoding
+* Categorical Data
+* Numerical Data
+* Imbalanced Data
+* Class Imbalance
+* Bias (in data)
+* Variance
+* Bias-Variance Tradeoff
+* Cross-Validation
+* K-Fold Cross-Validation
+
+---
+
+### 2. Types of Learning & Algorithms
+
+These are the main families of ML and the specific algorithms a professor will name.
+
+#### Supervised Learning
+* Supervised Learning
+* Regression
+* Classification
+* Linear Regression
+* Logistic Regression
+* Support Vector Machine (SVM)
+* Support Vector Classifier (SVC)
+* Support Vector Regressor (SVR)
+* Decision Tree
+* Random Forest
+* Gradient Boosting
+* XGBoost (Extreme Gradient Boosting)
+* LightGBM
+* CatBoost
+* AdaBoost (Adaptive Boosting)
+* Ensemble Learning
+* Bagging
+* Boosting
+* Stacking
+* K-Nearest Neighbors (KNN)
+* Naive Bayes
+* Gaussian Naive Bayes
+
+#### Unsupervised Learning
+* Unsupervised Learning
+* Clustering
+* Dimensionality Reduction
+* K-Means Clustering
+* DBSCAN
+* Hierarchical Clustering
+* Agglomerative Clustering
+* Principal Component Analysis (PCA)
+* t-SNE (t-distributed Stochastic Neighbor Embedding)
+* Autoencoder
+* Anomaly Detection
+* Association Rule
+* Apriori
+
+#### Reinforcement Learning (RL)
+* Reinforcement Learning
+* Agent
+* Environment
+* State
+* Action
+* Reward
+* Policy
+* Value Function
+* Q-Learning
+* Q-Table
+* State-Action-Reward-State-Action (SARSA)
+* Markov Decision Process (MDP)
+* Exploration vs. Exploitation
+* Epsilon-Greedy
+* Policy Gradient
+* Actor-Critic
+* Deep Q-Network (DQN)
+
+---
+
+### 3. Model Evaluation Metrics
+
+These are the terms used to describe *how well* a model is performing.
+
+* Metric
+* Accuracy
+* Precision
+* Recall
+* Sensitivity
+* F1-Score
+* Confusion Matrix
+* True Positive (TP)
+* True Negative (TN)
+* False Positive (FP)
+* False Negative (FN)
+* Type I Error (False Positive)
+* Type II Error (False Negative)
+* ROC Curve (Receiver Operating Characteristic)
+* AUC (Area Under the Curve)
+* PR Curve (Precision-Recall Curve)
+* Mean Squared Error (MSE)
+* Root Mean Squared Error (RMSE)
+* Mean Absolute Error (MAE)
+* R-squared (Coefficient of Determination)
+* Log-Loss (Logarithmic Loss)
+* Cross-Entropy
+* Silhouette Score
+* Inertia
+
+---
+
+### 4. Deep Learning & Neural Networks
+
+This is the most jargon-heavy field. This list is critical for advanced courses.
+
+* Neural Network
+* Artificial Neural Network (ANN)
+* Perceptron
+* Multi-Layer Perceptron (MLP)
+* Neuron
+* Node
+* Layer
+* Input Layer
+* Hidden Layer
+* Output Layer
+* Activation Function
+* Sigmoid
+* Tanh (Hyperbolic Tangent)
+* ReLU (Rectified Linear Unit)
+* Leaky ReLU
+* Softmax
+* Forward Propagation
+* Backpropagation (Backprop)
+* Gradient
+* Vanishing Gradient
+* Exploding Gradient
+* Optimizer
+* Adam (Optimizer)
+* RMSprop
+* Adagrad
+* Momentum
+* Dropout
+* Batch Normalization
+* Learning Rate Scheduler
+* Convolutional Neural Network (CNN)
+* Convolution
+* Kernel
+* Filter
+* Padding
+* Stride
+* Pooling Layer
+* Max Pooling
+* Average Pooling
+* Computer Vision (CV)
+* Image Recognition
+* Object Detection
+* Image Segmentation
+* Recurrent Neural Network (RNN)
+* Long Short-Term Memory (LSTM)
+* Gated Recurrent Unit (GRU)
+* Sequence-to-Sequence (Seq2Seq)
+* Time Series
+* Backpropagation Through Time (BPTT)
+* Autoencoder (AE)
+* Variational Autoencoder (VAE)
+* Generative Adversarial Network (GAN)
+* Generator
+* Discriminator
+* Transformer
+* Attention Mechanism
+* Self-Attention
+* Multi-Head Attention
+* Positional Encoding
+* Encoder
+* Decoder
+* BERT (Bidirectional Encoder Representations from Transformers)
+* GPT (Generative Pre-trained Transformer)
+* Large Language Model (LLM)
+* Generative AI
+* Fine-Tuning
+* Transfer Learning
+* Pre-training
+
+---
+
+### 5. Natural Language Processing (NLP)
+
+Jargon specific to text and language-based lectures.
+
+* Natural Language Processing (NLP)
+* Corpus
+* Token
+* Tokenization
+* Vocabulary
+* Document
+* N-gram
+* Bag-of-Words (BoW)
+* Stop Words
+* Stemming
+* Lemmatization
+* TF-IDF (Term Frequency-Inverse Document Frequency)
+* Vector Space Model
+* Word Embedding
+* Word2Vec
+* GloVe (Global Vectors for Word Representation)
+* FastText
+* Sentiment Analysis
+* Named Entity Recognition (NER)
+* Part-of-Speech (POS) Tagging
+* Machine Translation
+* Text Summarization
+* Topic Modeling
+* Latent Dirichlet Allocation (LDA)
+* Hugging Face
+
+---
+
+### 6. Core Math & Statistics
+
+The underlying concepts that professors will mention.
+
+* Linear Algebra
+* Calculus
+* Statistics
+* Probability
+* Vector
+* Matrix
+* Tensor
+* Dot Product
+* Matrix Multiplication
+* Derivative
+* Partial Derivative
+* Chain Rule
+* Gradient (as in, of a function)
+* Mean
+* Median
+* Mode
+* Standard Deviation
+* Variance
+* Correlation
+* Covariance
+* Probability Distribution
+* Normal Distribution (Gaussian)
+* Bayes' Theorem
+* Posterior Probability
+* Prior Probability
+* Likelihood
+* Eigenvector
+* Eigenvalue
+
