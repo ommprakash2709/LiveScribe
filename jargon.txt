@@ -1,0 +1,150 @@
+---
+
+### LiveScribe — Project Glossary & Jargon Guide
+
+This file gives concise definitions, conventions, and actionable guidance for terms used across the LiveScribe project. It is written for developers, data annotators, and testers so everyone has a shared understanding of the project's domain vocabulary and dataset/formatting rules.
+
+Format
+- Term — short definition
+	- Tag(s): CO mapping or area (e.g., CO1, data, backend, frontend)
+	- Example / notes: how it applies to LiveScribe
+	- Actionable: short instruction for dataset/implementation teams
+
+
+---
+
+Core terms
+
+ASR (Automatic Speech Recognition)
+- Tag(s): CO2, model
+- Definition: Software or model that converts spoken audio to text.
+- Notes: For LiveScribe we evaluate OpenAI Whisper (self-hosted or API), Google Speech-to-Text, and other streaming-capable engines.
+- Actionable: Record sample clips, run inference, compare WERs, and measure latency.
+
+Fine-tuning / Domain adaptation
+- Tag(s): CO2, data
+- Definition: Further training of a base model on domain-specific audio/transcript pairs to reduce errors on technical jargon.
+- Notes: Use curated lecture audio + human transcripts for best effect.
+- Actionable: Produce JSONL or model-specific dataset following the ASR vendor's format and keep a `vocab.txt` of special terms.
+
+Vocabulary list / Jargon list
+- Tag(s): CO2, data
+- Definition: A curated list of domain-specific words, acronyms, proper nouns, and pronunciations (e.g., professor names, course-specific terms).
+- Notes: This file is the project-level human-readable glossary; produce a machine-readable `data/glossary.json` for preprocessing.
+- Actionable: Collect from transcripts, syllabus, and lecturers; include canonical form, common mis-hearings, and suggested normalization.
+
+WER (Word Error Rate)
+- Tag(s): CO4, evaluation
+- Definition: (substitutions + insertions + deletions) / total words in ground truth — primary accuracy metric for transcripts.
+- Notes: Report overall WER and WER on the vocabulary list subset separately.
+- Actionable: Use an off-the-shelf WER calculator; annotate errors on jargon separately for targeted improvements.
+
+Real-time / streaming
+- Tag(s): CO3, backend, latency
+- Definition: Processing audio in small chunks and returning partial or final transcripts with minimal delay.
+- Notes: Distinguish between true low-latency streaming (sub-second) and near-real-time (1–5s).
+- Actionable: Define target latency budget (e.g., <500ms for partial updates; <2s for final text) and measure actual round-trip times.
+
+WebSocket / Socket.IO
+- Tag(s): CO3, frontend, backend
+- Definition: A persistent, full-duplex channel between client and server used to send audio and receive text updates in real-time.
+- Actionable: Use rooms or namespaces to isolate lecture sessions; include heartbeat & reconnection logic.
+
+Chunking / Frames / Sample rate
+- Tag(s): CO3, audio
+- Definition: How audio is sliced for streaming: frame size (ms), overlap, sample rate (e.g., 16 kHz or 48 kHz), and bit depth.
+- Notes: Many ASR models expect 16 kHz PCM mono; confirm required pre-processing.
+- Actionable: Normalize captured audio to model spec client- or server-side; document chosen parameters in `README`.
+
+VAD (Voice Activity Detection)
+- Tag(s): CO3, audio
+- Definition: Algorithm to detect when speech is present; helps reduce sending silence and improves segmentation.
+- Actionable: Use lightweight VAD to only stream speech segments or to mark silence boundaries for better transcripts.
+
+Timestamps / Time-alignment
+- Tag(s): CO3, UX
+- Definition: Per-word or per-chunk time offsets that let the frontend highlight text in sync with audio.
+- Actionable: If supported by ASR, request timestamps; else consider forced alignment tools post-hoc for recorded lectures.
+
+Confidence score
+- Tag(s): CO3, UX
+- Definition: ASR-provided probability/score for each hypothesis or word.
+- Notes: Use confidence to flag low-trust words for review or to display uncertain text differently in the UI.
+
+Ground truth
+- Tag(s): CO4, evaluation
+- Definition: Human-made transcript used as the reference when calculating WER.
+- Actionable: When creating ground truth, follow consistent punctuation and casing rules (see Labeling Guidelines below).
+
+Tokenization / Normalization
+- Tag(s): data, preprocessing
+- Definition: Rules applied to text before training/evaluation: lowercasing or not, how to handle punctuation, numbers, abbreviations and acronyms.
+- Actionable: Define a normalization pipeline and apply it consistently to both model outputs and ground truth before computing WER.
+
+Punctuation restoration
+- Tag(s): UX, postprocessing
+- Definition: Inserting punctuation into ASR outputs to improve readability; can be a separate model or rule-based.
+
+CTC / End-to-End / Beam search
+- Tag(s): model
+- Short notes: CTC (Connectionist Temporal Classification) is a common ASR loss that lets models align variable-length audio to tokens; beam search is used during decoding to choose best hypotheses.
+
+Latency
+- Tag(s): CO3, CO5, performance
+- Definition: Time from audio capture until transcription appears on a student client.
+- Actionable: Measure and log both network latency and ASR inference latency; aim to keep UI-perceived latency minimal.
+
+Room / Session
+- Tag(s): CO3, UX
+- Definition: A uniquely identified lecture instance (URL or room ID) that groups lecturer audio and student clients.
+
+Security & Privacy
+- Tag(s): deployment
+- Notes: Obtain consent for audio recordings; anonymize or secure stored audio and transcripts; follow university policies and privacy laws (e.g., GDPR) when handling student/lecturer data.
+
+
+Labeling & dataset conventions (quick guidelines)
+- Transcription style: Prefer verbatim for ground truth, but include a normalization note. Example: keep spoken contractions, but expand or document numbers consistently ("twenty twenty" vs "2020").
+- Jargon handling: For any word on the vocabulary list, include a canonical form and common alternatives (typos, homophones) in the dataset metadata.
+- Timestamps: If possible, produce start/end times for each utterance or word; if not available, produce chunk-level timestamps.
+- File naming: Use consistent names: course_professor_YYYYMMDD_sessionN.wav and matching transcript `.jsonl` or `.txt` with a unique session id.
+- Audio format: Store raw copies as PCM WAV (16-bit, mono) and keep a compressed copy if necessary for storage.
+
+Annotation rules
+- Who: Use trained annotators or verified student transcribers for ground truth creation.
+- How: Provide each annotator with the vocabulary list and example transcripts. Mark low-confidence regions for review.
+- Quality: Perform spot checks; compute inter-annotator agreement for a subset.
+
+Examples
+- Term: "FFT"
+	- Tag(s): data, model
+	- Example: in audio processing context, pronounced "F-F-T"; can be expanded to "Fast Fourier Transform" in final transcripts if desired.
+	- Actionable: Add both forms to vocabulary list ("FFT" and "Fast Fourier Transform") and map to canonical form for analytics.
+
+- Term: "Whisper" (OpenAI Whisper)
+	- Tag(s): model
+	- Example: model that can run offline or via API; may need chunking for streaming.
+	- Actionable: Document chosen deployment mode (API vs self-hosted) and the required input format.
+
+
+Where this file fits
+- Keep this human-readable `jargon.txt` as the canonical glossary for contributors.
+- Actionable next step: Add `docs/glossary.md` (copy of this content) and `data/glossary.json` (machine-readable array of objects: {term, canonical, tags, notes, examples}).
+
+Maintenance notes
+- Who can edit: maintainers and data leads. When adding a new term, include: canonical form, common alternatives, CO mapping, and an actionable note.
+- Versioning: Tag updates in a short changelog line with date and author.
+
+Short checklist for dataset creators and annotators
+- Collect lecture audio in WAV (16 kHz mono) and store raw + compressed.
+- Produce a human-verified transcript for each recorded session using the project's transcription style.
+- Add any new technical terms to `data/glossary.json` and notify the team.
+- Run WER and WER-on-jargon scripts after model updates and report improvements in the issue tracker.
+
+
+---
+
+If you'd like, I can:
+1. Create `docs/glossary.md` and `data/glossary.json` next (machine-readable glossary),
+2. Add a short contributor note in `README.md` linking to this glossary, or
+3. Generate a basic WER-on-jargon evaluation script as a starting point.
